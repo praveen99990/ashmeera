@@ -1,0 +1,7 @@
+{
+  "name": "Ashmeera — The Flower of Heaven",
+  "description": "A digital gallery dedicated to Ashmeera. Every frame, every Ghazal, and every word is inspired by you.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

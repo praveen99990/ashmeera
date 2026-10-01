@@ -1,0 +1,631 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #FCFBF9;
+  --color-ink: #4A4240;
+
+  --color-blush: #E9C9CB;
+  --color-blush-light: #F8EAE8;
+  --color-blush-deep: #C58A93;
+
+  --color-sage: #A8B8A0;
+  --color-sage-light: #E6EDE2;
+  --color-sage-deep: #6B7F64;
+
+  --color-gold: #C9A96E;
+  --color-gold-light: #EBDDBE;
+
+  --font-serif: "Playfair Display", "Amiri", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-arabic: "Amiri", serif;
+  --font-urdu: "Noto Nastaliq Urdu", "Amiri", serif;
+  --font-handwriting: "Alex Brush", cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: #FCFBF9;
+  color: #4A4240;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Islamic geometric watermark background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90' fill='none' stroke='%23C9A96E' stroke-width='.75'><rect x='25' y='25' width='40' height='40'/><rect x='25' y='25' width='40' height='40' transform='rotate(45 45 45)'/><circle cx='45' cy='45' r='11'/><path d='M0 0L25 25M90 0L65 25M0 90L25 65M90 90L65 65'/></svg>");
+}
+
+/* Subtle handmade fine-art paper grain texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Bespoke Luxury Editorial Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #FCFBF9;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 169, 110, 0.35);
+  border-radius: 9999px;
+  border: 2px solid #FCFBF9;
+  transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(197, 138, 147, 0.65);
+}
+
+/* Typography refinements */
+.font-urdu {
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
+.font-arabic {
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
+*:focus-visible {
+  outline: 2px solid rgba(201, 169, 110, 0.6);
+  outline-offset: 2px;
+}
+
+main, footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Animations */
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: rise 1.5s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1.1s cubic-bezier(0.2, 0.7, 0.2, 1), transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+.card {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.6s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 35px -18px rgba(197, 138, 147, 0.4);
+}
+
+.ov {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.card:hover .ov {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .ov {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes beat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.24);
+  }
+}
+
+@keyframes bar {
+  0%, 100% {
+    height: 4px;
+  }
+  50% {
+    height: 16px;
+  }
+}
+
+.heart {
+  animation: beat 1.6s ease-in-out infinite;
+}
+
+.vinyl {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex: none;
+  animation: spin 6s linear infinite;
+  animation-play-state: paused;
+  background: radial-gradient(circle, #F8EAE8 0 16%, #C9A96E 16% 19%, transparent 19%),
+              conic-gradient(from 20deg, rgba(255, 255, 255, 0.7), transparent 25%, rgba(255, 255, 255, 0.7) 50%, transparent 75%, rgba(255, 255, 255, 0.7)),
+              repeating-radial-gradient(circle, #EFE6D6 0 2px, #DFD2BC 2px 3px);
+  box-shadow: 0 2px 8px rgba(120, 100, 70, 0.25);
+}
+
+.playing .vinyl {
+  animation-play-state: running;
+}
+
+.wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 16px;
+}
+
+.wave i {
+  display: block;
+  width: 3px;
+  height: 4px;
+  border-radius: 2px;
+  background: #C9A96E;
+}
+
+.playing .wave i {
+  animation: bar 1s ease-in-out infinite;
+}
+
+.wave i:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.wave i:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.wave i:nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+/* Subtle Shimmer for Ashmeera name */
+.shimmer-text {
+  background: linear-gradient(
+    110deg,
+    #4A4240 0%,
+    #4A4240 40%,
+    #C9A96E 50%,
+    #4A4240 60%,
+    #4A4240 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 1.2s ease;
+}
+
+.shimmer-text:hover {
+  background-position: -100% 0;
+}
+
+/* Floating particles */
+@keyframes floatParticle {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.6);
+  }
+  30% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-38px) scale(1.1);
+  }
+}
+
+.golden-sparkle {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, #EBDDBE 0%, #C9A96E 60%, transparent 100%);
+  animation: floatParticle 3.2s ease-in-out infinite;
+}
+
+/* Floating Petal Effect */
+@keyframes petalDrift {
+  0% {
+    transform: translateY(-5vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.65;
+  }
+  85% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translateY(105vh) translateX(45px) rotate(320deg);
+    opacity: 0;
+  }
+}
+
+.floating-petal {
+  position: fixed;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 25;
+  animation: petalDrift 18s linear infinite;
+  touch-action: manipulation;
+  transition: filter 0.3s ease;
+}
+
+.floating-petal:hover {
+  filter: drop-shadow(0 0 10px rgba(201, 169, 110, 0.75)) drop-shadow(0 0 16px rgba(229, 138, 54, 0.35));
+}
+
+/* Petal Touch Burst & Urdu Whisper Effects */
+@keyframes petalWordRise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(14px) scale(0.82);
+    filter: blur(2px) drop-shadow(0 0 0 rgba(201, 169, 110, 0));
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1.08);
+    filter: blur(0) drop-shadow(0 0 16px rgba(201, 169, 110, 0.75))
+                    drop-shadow(0 0 28px rgba(197, 138, 147, 0.45));
+  }
+  32% {
+    transform: translate(-50%, -50%) translateY(-4px) scale(1);
+    filter: drop-shadow(0 0 12px rgba(201, 169, 110, 0.6));
+  }
+  75% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) translateY(-18px) scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-34px) scale(0.88);
+    filter: blur(3px);
+  }
+}
+
+@keyframes emberScatter {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  65% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0.15) rotate(var(--rot));
+  }
+}
+
+.petal-word-anim {
+  animation: petalWordRise 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ember-scatter-anim {
+  animation: emberScatter 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Letter unfold effect */
+.letter-paper {
+  background: #FAF8F5;
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 4px 14px -2px rgba(74, 66, 64, 0.08),
+    0 16px 38px -6px rgba(197, 138, 147, 0.18);
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  position: relative;
+}
+
+.letter-paper::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  pointer-events: none;
+}
+
+/* ========================================================
+   Ghalib Blockquote Blossoming Entrance & Glow Pulse
+   ======================================================== */
+
+.ghalib-blossom {
+  opacity: 0;
+  transform: scale(0.92) translateY(22px);
+  filter: blur(4px);
+  transition:
+    opacity 1.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 0.6s ease;
+  will-change: opacity, transform, filter;
+}
+
+.ghalib-blossom.blossomed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+}
+
+@keyframes blossomGoldenFlare {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  45% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+}
+
+.ghalib-blossom.blossomed .blossom-flare {
+  animation: blossomGoldenFlare 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Ghalib Verse Golden Glow Pulse Effect — Organic, erratic 'Aatish-e-Ishq' fire breathing */
+@keyframes goldenFireGlowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 22px -2px rgba(201, 169, 110, 0.26),
+      0 0 44px 4px rgba(233, 201, 203, 0.16),
+      inset 0 0 20px 2px rgba(201, 169, 110, 0.10);
+    border-color: rgba(201, 169, 110, 0.50);
+    background: rgba(255, 253, 249, 0.92);
+  }
+  /* Inhale: gentle gathering of inner embers */
+  14% {
+    box-shadow:
+      0 0 28px 0px rgba(201, 169, 110, 0.34),
+      0 0 54px 6px rgba(225, 178, 120, 0.22),
+      inset 0 0 24px 2px rgba(201, 169, 110, 0.15);
+    border-color: rgba(214, 172, 112, 0.62);
+    background: rgba(255, 252, 248, 0.94);
+  }
+  /* Erratic Flame Flare: sudden lively flicker / spark jump */
+  26% {
+    box-shadow:
+      0 0 44px 5px rgba(228, 155, 75, 0.52),
+      0 0 76px 10px rgba(240, 185, 110, 0.32),
+      inset 0 0 32px 4px rgba(228, 155, 75, 0.22);
+    border-color: rgba(228, 155, 75, 0.80);
+    background: rgba(255, 250, 244, 0.96);
+  }
+  /* Breath Catch: natural momentary tremor / dip */
+  34% {
+    box-shadow:
+      0 0 34px 2px rgba(201, 169, 110, 0.38),
+      0 0 62px 7px rgba(220, 168, 115, 0.24),
+      inset 0 0 26px 3px rgba(201, 169, 110, 0.16);
+    border-color: rgba(208, 168, 110, 0.65);
+    background: rgba(255, 251, 246, 0.94);
+  }
+  /* Grand Aatish Crest: deep, incandescent crest of love's fire */
+  52% {
+    box-shadow:
+      0 0 54px 9px rgba(201, 169, 110, 0.60),
+      0 0 98px 18px rgba(230, 150, 80, 0.34),
+      inset 0 0 46px 6px rgba(201, 169, 110, 0.28);
+    border-color: rgba(222, 170, 100, 0.92);
+    background: rgba(255, 249, 241, 0.97);
+  }
+  /* Secondary Wave: warm lingering radiance */
+  68% {
+    box-shadow:
+      0 0 42px 4px rgba(215, 162, 95, 0.46),
+      0 0 78px 12px rgba(228, 172, 120, 0.26),
+      inset 0 0 32px 4px rgba(201, 169, 110, 0.22);
+    border-color: rgba(215, 162, 95, 0.80);
+    background: rgba(255, 250, 244, 0.95);
+  }
+  /* Exhale: gradual cooling descent */
+  82% {
+    box-shadow:
+      0 0 30px 1px rgba(201, 169, 110, 0.32),
+      0 0 56px 5px rgba(233, 201, 203, 0.20),
+      inset 0 0 24px 2px rgba(201, 169, 110, 0.14);
+    border-color: rgba(201, 169, 110, 0.60);
+    background: rgba(255, 252, 247, 0.93);
+  }
+  /* Hearth Settling: soft ember rest */
+  92% {
+    box-shadow:
+      0 0 24px -1px rgba(201, 169, 110, 0.28),
+      0 0 48px 4px rgba(233, 201, 203, 0.18),
+      inset 0 0 21px 2px rgba(201, 169, 110, 0.11);
+    border-color: rgba(201, 169, 110, 0.54);
+    background: rgba(255, 253, 248, 0.92);
+  }
+}
+
+.ghalib-blockquote {
+  position: relative;
+}
+
+.ghalib-blockquote.blossomed:hover,
+.ghalib-blockquote.blossomed:focus-within {
+  animation: goldenFireGlowPulse 4s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+  background: rgba(255, 250, 242, 0.96);
+}
+
+/* ========================================================
+   Grand Exhibition Masonry Parallax Floating Effects
+   ======================================================== */
+
+@keyframes parallaxFloatSlow {
+  0% {
+    transform: translate3d(0, -14px, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(0, 14px, 0) scale(1.08);
+  }
+}
+
+@keyframes parallaxFloatMedium {
+  0% {
+    transform: translate3d(0, -24px, 0) scale(1.12);
+  }
+  100% {
+    transform: translate3d(0, 24px, 0) scale(1.12);
+  }
+}
+
+@keyframes parallaxFloatFast {
+  0% {
+    transform: translate3d(0, -34px, 0) scale(1.16);
+  }
+  100% {
+    transform: translate3d(0, 34px, 0) scale(1.16);
+  }
+}
+
+@keyframes parallaxFloatCounter {
+  0% {
+    transform: translate3d(0, 18px, 0) scale(1.10);
+  }
+  100% {
+    transform: translate3d(0, -18px, 0) scale(1.10);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .parallax-img-slow {
+    animation: parallaxFloatSlow linear both;
+    animation-timeline: view();
+    animation-range: entry -10% exit 110%;
+    will-change: transform;
+  }
+
+  .parallax-img-medium {
+    animation: parallaxFloatMedium linear both;
+    animation-timeline: view();
+    animation-range: entry -10% exit 110%;
+    will-change: transform;
+  }
+
+  .parallax-img-fast {
+    animation: parallaxFloatFast linear both;
+    animation-timeline: view();
+    animation-range: entry -10% exit 110%;
+    will-change: transform;
+  }
+
+  .parallax-img-counter {
+    animation: parallaxFloatCounter linear both;
+    animation-timeline: view();
+    animation-range: entry -10% exit 110%;
+    will-change: transform;
+  }
+}
+
+/* Sarangi Music Breathing Flame of Love Effect */
+@keyframes sarangiFireBreath {
+  0%, 100% {
+    transform: scale(0.96);
+    opacity: 0.38;
+    filter: drop-shadow(0 0 10px rgba(201, 169, 110, 0.4))
+            drop-shadow(0 0 20px rgba(229, 138, 54, 0.22));
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.88;
+    filter: drop-shadow(0 0 18px rgba(201, 169, 110, 0.8))
+            drop-shadow(0 0 32px rgba(229, 138, 54, 0.6))
+            drop-shadow(0 0 45px rgba(245, 185, 80, 0.35));
+  }
+}
+
+@keyframes emberRise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5) rotate(0deg);
+  }
+  30% {
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.7;
+    transform: translateY(-16px) translateX(4px) scale(0.9) rotate(45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) translateX(-3px) scale(0.3) rotate(90deg);
+  }
+}
+
+.sarangi-fire-pulse {
+  animation: sarangiFireBreath 3.2s ease-in-out infinite;
+}
+
+.sarangi-ember {
+  animation: emberRise 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .floating-petal, .golden-sparkle,
+  .parallax-img-slow, .parallax-img-medium, .parallax-img-fast, .parallax-img-counter {
+    animation: none !important;
+    transform: none !important;
+  }
+}
