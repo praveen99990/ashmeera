@@ -62,7 +62,7 @@ export const ASH_CONFIG = {
   music: {
     title: "Alfaaz",
     subtitle: "Raga Yaman • Nocturnal Serenade",
-    src: "/assets/music/Alfaaz.mp3",
+    src: `${import.meta.env.BASE_URL}assets/music/Alfaaz.mp3`,
   },
 
   // --- 3 Living Video Portraits (Uploaded by User) ---

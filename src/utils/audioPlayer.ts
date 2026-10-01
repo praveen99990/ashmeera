@@ -18,7 +18,7 @@ class SarangiAudioEngine {
   private isPlaying = false;
   private isMuted = false;
   private volume = 0.65;
-  private src = '/assets/music/Alfaaz.mp3';
+  private src = `${import.meta.env.BASE_URL}assets/music/Alfaaz.mp3`;
 
   // Listeners
   private onStateChangeCallbacks: Array<

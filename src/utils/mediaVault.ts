@@ -11,7 +11,7 @@ class MediaVaultService {
       return filename;
     }
 
-    return `/assets/media/${filename}`;
+    return `${import.meta.env.BASE_URL}assets/media/${filename}`;
   }
 }
 
