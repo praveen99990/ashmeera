@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/Ashmeera---the_flower_of_heaven/',
+    base: '/ashmeera/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
